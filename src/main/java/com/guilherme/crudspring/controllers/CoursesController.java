@@ -2,9 +2,13 @@ package com.guilherme.crudspring.controllers;
 
 import com.guilherme.crudspring.models.Course;
 import com.guilherme.crudspring.repositories.CourseRepository;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/courses")
 @AllArgsConstructor
+@Validated
 public class CoursesController {
     private CourseRepository courseRepository;
 
@@ -21,7 +26,7 @@ public class CoursesController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> findById(@PathVariable Long id) {
+    public ResponseEntity<Course> findById(@PathVariable @NotNull @Positive Long id) {
         return courseRepository.findById(id)
                 .map(record -> ResponseEntity.ok().body(record))
                 .orElse(ResponseEntity.notFound().build());
@@ -40,7 +45,7 @@ public class CoursesController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable @NotNull @Positive Long id) {
         return courseRepository.findById(id)
                 .map(recordFound -> {
                     courseRepository.deleteById(id);
@@ -51,7 +56,7 @@ public class CoursesController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Course create(@RequestBody Course course) {
+    public Course create(@RequestBody @Valid Course course) {
         return courseRepository.save(course);
     }
 }
