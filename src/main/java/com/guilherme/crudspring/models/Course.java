@@ -1,10 +1,13 @@
 package com.guilherme.crudspring.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.guilherme.crudspring.enums.Category;
+import com.guilherme.crudspring.enums.Status;
+import com.guilherme.crudspring.enums.converters.CategoryConverter;
+import com.guilherme.crudspring.enums.converters.StatusConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -21,20 +24,18 @@ public class Course {
     private Long id;
 
     @NotBlank
-    @Length(min= 5, max=100)
+    @Length(min = 5, max = 100)
     @NotNull
     @Column(nullable = false, length = 100)
     private String name;
 
     @NotNull
-    @Length(max = 20)
-    @Pattern(regexp = "Back-end|Front-end")
     @Column(length = 20, nullable = false)
-    private String category;
+    @Convert(converter = CategoryConverter.class)
+    private Category category;
 
     @NotNull
-    @Length(max = 10)
-    @Pattern(regexp = "ACTIVE|INACTIVE")
     @Column(length = 10, nullable = false)
-    private String status = "ACTIVE";
+    @Convert(converter = StatusConverter.class)
+    private Status status = Status.ACTIVE;
 }
