@@ -1,13 +1,12 @@
 package com.guilherme.crudspring.controllers;
 
-import com.guilherme.crudspring.models.Course;
+import com.guilherme.crudspring.dto.CourseDTO;
 import com.guilherme.crudspring.repositories.CourseRepository;
 import com.guilherme.crudspring.service.CourseService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,17 +23,17 @@ public class CoursesController {
     }
 
     @GetMapping
-    public List<Course> list() {
+    public List<CourseDTO> list() {
         return courseService.list();
     }
 
     @GetMapping("/{id}")
-    public Course findById(@PathVariable @NotNull @Positive Long id) {
+    public CourseDTO findById(@PathVariable @NotNull @Positive Long id) {
         return courseService.findById(id);
     }
 
     @PutMapping("/{id}")
-    public Course update(@PathVariable Long id, @RequestBody Course course) {
+    public CourseDTO update(@PathVariable Long id, @RequestBody @Valid @NotNull CourseDTO course) {
         return courseService.update(id, course);
     }
 
@@ -46,7 +45,7 @@ public class CoursesController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Course create(@RequestBody @Valid Course course) {
+    public CourseDTO create(@RequestBody @Valid CourseDTO course) {
         return courseService.create(course);
     }
 }
