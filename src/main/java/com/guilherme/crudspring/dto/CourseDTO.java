@@ -11,7 +11,7 @@ import java.util.List;
 public record CourseDTO(
         @JsonProperty("_id") Long id,
         @NotBlank @Length(min = 5, max = 100) @NotNull String name,
-        @NotNull @Length(max = 20) @Pattern(regexp = "Back-end|Front-end") String category,
+        @NotNull @Length(max = 20) @Pattern(regexp = "BACK-END|FRONT-END") String category,
         List<LessonDTO> lessons
         ) {
 
