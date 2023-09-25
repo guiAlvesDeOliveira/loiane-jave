@@ -3,6 +3,7 @@ package com.guilherme.crudspring.service;
 import com.guilherme.crudspring.dto.CourseDTO;
 import com.guilherme.crudspring.dto.mapper.CourseMapper;
 import com.guilherme.crudspring.exception.RecordNotFoundException;
+import com.guilherme.crudspring.models.Course;
 import com.guilherme.crudspring.repositories.CourseRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;

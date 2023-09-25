@@ -19,7 +19,7 @@ import java.util.List;
 @Data
 @Entity
 @SQLDelete(sql = "UPDATE Course SET status = 'INACTIVE' WHERE id = ?")
-@Where(clause = "status = 'ACTIVE'")
+@Where(clause = "status = 'ATIVO'")
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
