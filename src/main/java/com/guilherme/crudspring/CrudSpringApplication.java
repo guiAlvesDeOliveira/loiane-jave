@@ -3,6 +3,7 @@ package com.guilherme.crudspring;
 import com.guilherme.crudspring.enums.Category;
 import com.guilherme.crudspring.enums.Status;
 import com.guilherme.crudspring.models.Course;
+import com.guilherme.crudspring.models.Lesson;
 import com.guilherme.crudspring.repositories.CourseRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,7 +23,12 @@ public class CrudSpringApplication {
             Course c = new Course();
             c.setName("Angular com Spring");
             c.setCategory(Category.FRONTEND);
-            c.setStatus(Status.ACTIVE);
+            Lesson l = new Lesson();
+            l.setName("Introdução");
+            l.setYoutubeUrl("youtube.com");
+            l.setCourse(c);
+            c.getLessons().add(l);
+
             courseRepository.deleteAll();
             courseRepository.save(c);
         };  
