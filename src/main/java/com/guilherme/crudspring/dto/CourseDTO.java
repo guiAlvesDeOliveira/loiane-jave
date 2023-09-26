@@ -1,6 +1,8 @@
 package com.guilherme.crudspring.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.guilherme.crudspring.enums.Category;
+import com.guilherme.crudspring.enums.validation.ValueOfEnum;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -13,7 +15,7 @@ import java.util.List;
 public record CourseDTO(
         @JsonProperty("_id") Long id,
         @NotBlank @Length(min = 5, max = 100) @NotNull String name,
-        @NotNull @Length(max = 20) @Pattern(regexp = "BACK-END|FRONT-END") String category,
+        @NotNull @Length(max = 20) @ValueOfEnum(enumClass = Category.class) String category,
         @NotEmpty @NotNull @Valid List<LessonDTO> lessons
 ) {
 
